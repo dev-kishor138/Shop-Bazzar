@@ -1,11 +1,8 @@
-import LoginSvg from "@/components/LoginSvg";
-import LoginForm from "./LoginForm";
+import LoginSvg from '@/components/LoginSvg';
+import React from 'react';
+import SignUpForm from './SignUpForm';
 
-export const metadata = {
-    title: "Login || Shop Bazzar"
-}
-
-const LoginPage = () => {
+const SignUpPage = () => {
     return (
         <div className="hero bg-base-200 w-full">
             <div className="hero-content flex-col lg:flex-row justify-between w-full">
@@ -15,11 +12,11 @@ const LoginPage = () => {
                     <LoginSvg />
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-lg shadow-2xl bg-base-100">
-                    <LoginForm />
+                    <SignUpForm />
                 </div>
             </div>
         </div>
     );
 };
 
-export default LoginPage;
+export default SignUpPage;

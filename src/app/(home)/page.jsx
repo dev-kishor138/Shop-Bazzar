@@ -1,11 +1,12 @@
-import React from 'react';
+import HeroSlider from "./HeroSlider";
 
-const SignUpPage = () => {
+
+const HomePage = () => {
     return (
         <div>
-            <h2>This is sign up page</h2>
+            <HeroSlider />
         </div>
     );
 };
 
-export default SignUpPage;
+export default HomePage;

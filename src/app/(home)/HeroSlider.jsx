@@ -1,28 +1,31 @@
+"use client";
 
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, EffectFade, Autoplay } from 'swiper'
-
-
-import 'swiper/css/bundle';
+// Import Swiper styles
+import mainSlider from "@/data/mainSlider";
+import { Autoplay, EffectFade, Navigation } from "swiper/modules";
+import "swiper/css/bundle";
+import SingleHeroSlider from "./SingleHeroSlider";
 
 const HeroSlider = () => {
     return (
-        <div className='main-slider'>
+        <section className="main-slider">
             <Swiper
                 slidesPerView={1}
                 loop
                 navigation
                 effect="fade"
+                autoplay={{ delay: 3000 }}
                 modules={[Navigation, EffectFade, Autoplay]}
             >
-                <SwiperSlide>Slide 1</SwiperSlide>
-                <SwiperSlide>Slide 2</SwiperSlide>
-                <SwiperSlide>Slide 3</SwiperSlide>
-                <SwiperSlide>Slide 4</SwiperSlide>
-                ...
+                {mainSlider.map((slider) => (
+                    <SwiperSlide key={slider.id}>
+                        <SingleHeroSlider slider={slider} />
+                    </SwiperSlide>
+                ))}
             </Swiper>
-        </div>
+        </section>
     );
 };
 

@@ -4,6 +4,7 @@ import { Roboto_Slab } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Providers from "@/provider";
+import Toaster from "@/components/Toaster";
 
 const roboto = Roboto_Slab({
   weight: ["100", "300", "400", "500", "700", "900"],
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
             <Footer />
           </div>
         </Providers>
+        <Toaster />
       </body>
     </html>
   );

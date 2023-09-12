@@ -5,18 +5,25 @@ import NavLink from './NavLink';
 import { afterLoginNavData, beforeLoginNavData } from '@/data/navData';
 import useTheme from '@/hooks/useTheme';
 import { useState } from 'react';
+import useAuth from '@/hooks/useAuth';
+import Image from 'next/image';
+import toast from 'react-hot-toast';
 
 
 
 const Navbar = () => {
-    const user = null;
+    const { user, logout } = useAuth();
+    const { uid, displayName, photoURL } = user || {};
 
-    const navData = user ? afterLoginNavData : beforeLoginNavData;
+    const navData = uid ? afterLoginNavData : beforeLoginNavData;
 
     const { theme, toggleTheme } = useTheme();
-
     const [navToggle, setNavToggle] = useState(false);
 
+    const handleLogout = async () => {
+        await logout();
+        toast.success('successfully logout')
+    }
 
     return (
         <div className="navbar sticky top-0 z-10 bg-slate-200 shadow-lg dark:bg-slate-900">
@@ -78,22 +85,37 @@ const Navbar = () => {
                     </div>
                 </div>
                 {
-                    user ?
+                    uid ?
                         <div className="dropdown dropdown-end">
                             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                                 <div className="w-10 rounded-full">
-                                    <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                    <Image
+                                        alt='User Logo'
+                                        title={displayName}
+                                        src={photoURL}
+                                        width={40}
+                                        height={40}
+                                        className='h-10 w-10 rounded-full'
+                                    />
                                 </div>
                             </label>
                             <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                                 <li>
                                     <a className="justify-between">
-                                        Profile
+                                        {displayName}
                                         <span className="badge">New</span>
                                     </a>
                                 </li>
-                                <li><a>Settings</a></li>
-                                <li><a>Logout</a></li>
+                                <li>
+                                    <NavLink
+                                        href="/profile"
+                                        className="text-lg"
+                                        activeClassName='text-blue-500'
+                                    >
+                                        Profile
+                                    </NavLink>
+                                </li>
+                                <li><button onClick={handleLogout}>Logout</button></li>
                             </ul>
                         </div> :
                         ""
