@@ -2,6 +2,10 @@ import LoginSvg from '@/components/LoginSvg';
 import React from 'react';
 import SignUpForm from './SignUpForm';
 
+export const metadata = {
+    title: "SignUp || Shop Bazzar"
+}
+
 const SignUpPage = () => {
     return (
         <div className="hero bg-base-200 w-full">

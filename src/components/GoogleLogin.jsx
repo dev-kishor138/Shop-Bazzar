@@ -1,11 +1,39 @@
+import useAuth from "@/hooks/useAuth";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
 
 
-const GoogleLogin = () => {
+const GoogleLogin = ({ from }) => {
+    const { googleLogin } = useAuth();
+    const { replace, refresh } = useRouter();
+
+    const handleGoogleLogin = async () => {
+        const toastId = toast.loading("Loading...");
+        try {
+            const { user } = await googleLogin();
+            await createJWT({ email: user.email });
+            startTransition(() => {
+                refresh();
+                replace(from);
+                toast.dismiss(toastId);
+                toast.success("User signed in successfully");
+            });
+        } catch (error) {
+            toast.dismiss(toastId);
+            toast.error(error.message || "User not signed in");
+        }
+    };
+
     return (
-        <div>
-            googleLogin
-        </div>
-    );
+        <button
+            onClick={handleGoogleLogin}
+            type="button"
+            className="btn btn-primary mt-5 mx-auto"
+        >
+            <FcGoogle className="text-3xl mr-3" /> Continue with google
+        </button>
+    )
 };
 
 export default GoogleLogin;

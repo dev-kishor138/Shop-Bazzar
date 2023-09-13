@@ -92,7 +92,7 @@ const Navbar = () => {
                                     <Image
                                         alt='User Logo'
                                         title={displayName}
-                                        src={photoURL}
+                                        src={photoURL || 'https://i.ibb.co/VYmSmrp/MESSI.jpg'}
                                         width={40}
                                         height={40}
                                         className='h-10 w-10 rounded-full'
@@ -109,7 +109,7 @@ const Navbar = () => {
                                 <li>
                                     <NavLink
                                         href="/profile"
-                                        className="text-lg"
+
                                         activeClassName='text-blue-500'
                                     >
                                         Profile

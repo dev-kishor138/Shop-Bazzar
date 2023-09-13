@@ -14,7 +14,7 @@ const LoginForm = () => {
 
     const onSubmit = async (data) => {
         const { email, password } = data;
-        const toastId = toast.id('Loading...')
+        const toastId = toast.loading('Loading...')
         try {
             const user = await signIn(email, password);
             toast.dismiss(toastId);
@@ -26,7 +26,7 @@ const LoginForm = () => {
     }
 
     const handleGoogleLogin = async () => {
-        const toastId = toast.id('Loading...')
+        const toastId = toast.loading('Loading...');
         try {
             const user = await googleLogin();
             toast.dismiss(toastId);
