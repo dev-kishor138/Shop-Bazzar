@@ -8,6 +8,7 @@ import { useState } from 'react';
 import useAuth from '@/hooks/useAuth';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
+import { usePathname, useRouter } from 'next/navigation';
 
 
 
@@ -20,9 +21,23 @@ const Navbar = () => {
     const { theme, toggleTheme } = useTheme();
     const [navToggle, setNavToggle] = useState(false);
 
+    const { replace } = useRouter();
+    const path = usePathname();
+
     const handleLogout = async () => {
-        await logout();
-        toast.success('successfully logout')
+        try {
+            await logout();
+            const res = await fetch('/api/auth/logout', {
+                method: "POST",
+            })
+            const data = await res.json();
+            toast.success('successfully logout');
+            if (path.includes('/dashboard') || path.includes("/profile")) {
+                replace('/');
+            }
+        } catch (error) {
+            toast.error('logout Unsuccessful')
+        }
     }
 
     return (
